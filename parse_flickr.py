@@ -37,7 +37,7 @@ def main(clip_model_type: str):
     # check is GPU is available
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(device)
-    
+
     clip_model_name = clip_model_type.replace('/', '_')
     out_path = f"./data/flickr/{clip_model_name}_train.pkl"
     annotation_path = "./data/flickr/captions.txt"
@@ -112,7 +112,7 @@ def main(clip_model_type: str):
                     continue
 
             contrastive_captions.append({"caption": j_cap, "label": 0})
-            index_tracker.add(j, j_cap_idx)
+            index_tracker.add((j, j_cap_idx))
 
         data["captions"] += contrastive_captions
 
