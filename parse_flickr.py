@@ -33,7 +33,11 @@ def string_dist(text1, text2):
     return ((tfidf * tfidf.T).A)[0,1]
 
 def main(clip_model_type: str):
-    device = torch.device('cuda:0')
+    # device = torch.device('cuda:0')
+    # check is GPU is available
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    print(device)
+    
     clip_model_name = clip_model_type.replace('/', '_')
     out_path = f"./data/flickr/{clip_model_name}_train.pkl"
     annotation_path = "./data/flickr/captions.txt"
