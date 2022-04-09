@@ -104,16 +104,22 @@ def main(clip_model_type: str):
             j_cap_idx = randint(0, 4)
             j_cap = j_captions[j_cap_idx]["caption"]
 
+            save_cap = True
             for i_cap in i_captions:
                 i_cap = i_cap["caption"]
-                if string_dist(i_cap, j_cap) > string_sim_threshold:
-                    continue
+                sim_score = string_dist(i_cap, j_cap)
+                if sim_score > string_sim_threshold:
+                    save_cap = False
+                    break
 
                 if (j, j_cap_idx) in index_tracker:
-                    continue
+                    save_cap = False
+                    break
 
-            contrastive_captions.append({"caption": j_cap, "label": 0})
-            index_tracker.add((j, j_cap_idx))
+            if save_cap:
+                contrastive_captions.append({"caption": j_cap, "label": 0})
+                index_tracker.add((j, j_cap_idx))
+
 
         data["captions"] += contrastive_captions
 
