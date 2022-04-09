@@ -102,9 +102,10 @@ def main(clip_model_type: str):
 
             j_captions = dataset[j]["captions"]
             j_cap_idx = randint(0, 4)
-            j_cap = j_captions[j_cap_idx]
+            j_cap = j_captions[j_cap_idx]["caption"]
 
             for i_cap in i_captions:
+                i_cap = i_cap["caption"]
                 if string_dist(i_cap, j_cap) > string_sim_threshold:
                     continue
 
