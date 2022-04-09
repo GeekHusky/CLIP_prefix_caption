@@ -105,7 +105,7 @@ def main(clip_model_type: str):
             j_cap = j_captions[j_cap_idx]["caption"]
 
             save_cap = True
-            for i_cap in i_captions:
+            for i_cap in i_captions[:5]:
                 i_cap = i_cap["caption"]
                 sim_score = string_dist(i_cap, j_cap)
                 if sim_score > string_sim_threshold:
